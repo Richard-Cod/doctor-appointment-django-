@@ -38,7 +38,15 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
         
 class User(AbstractUser):
+    MALE ,FEMALE , OTHER = "1","2","3"
+    GENDERS = ((MALE, 'Male'),(FEMALE, 'Female'),(OTHER, 'other'),)
+
+
+    gender = models.CharField(max_length=255 , choices = GENDERS)
+
     email = models.EmailField(_('email address'), unique=True)
+    profile_pic = models.ImageField(upload_to="uploads/avatars/", blank=True)
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     username = None
