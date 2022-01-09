@@ -17,3 +17,5 @@ admin.site.register(DoctorLocation)
 
 
 admin.site.register(OpenHour)
+
+admin.site.register(DoctorReview)

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Doctor, DoctorAward, DoctorEducation, DoctorFeature, DoctorLocation, DoctorService, DoctorSpecialization, DoctorWorkExperience, OpenHour
+from .models import Doctor, DoctorAward, DoctorEducation, DoctorFeature, DoctorLocation, DoctorReview, DoctorService, DoctorSpecialization, DoctorWorkExperience, OpenHour
 from core.models import User
 
 
@@ -49,7 +49,12 @@ class DoctorLocationsSerializer(serializers.ModelSerializer):
 class DoctorOpenHourSerializer(serializers.ModelSerializer):
     class Meta:
         model = OpenHour
-        exclude = ("doctor",)               
+        exclude = ("doctor",)  
+
+class DoctorReviewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DoctorReview
+        exclude = ("id",)              
           
 
 class DoctorSerializer(serializers.HyperlinkedModelSerializer):
@@ -62,7 +67,7 @@ class DoctorSerializer(serializers.HyperlinkedModelSerializer):
     specializations = DoctorSpecializationsSerializer(many=True)
     locations = DoctorLocationsSerializer(many=True)
     openHours = DoctorOpenHourSerializer()
-    
+    reviews = DoctorReviewsSerializer(many=True)
 
     class Meta:
         model = Doctor
@@ -70,6 +75,6 @@ class DoctorSerializer(serializers.HyperlinkedModelSerializer):
             'user', 'description' ,'speciality' ,'amount_per_our' ,
             'min_amount' ,'max_amount' ,'place' ,'about' , 'features' , 
             "educations" ,"awards","experiences","services","specializations" , "locations",
-            "openHours" ]
+            "openHours" , "reviews"]
 
 

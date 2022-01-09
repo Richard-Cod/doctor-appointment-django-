@@ -101,6 +101,24 @@ class DoctorLocation(models.Model):
         return f" - {self.id}"
 
 
+class DoctorReview(models.Model):
+    doctor = models.ForeignKey(Doctor, related_name="reviews" , on_delete=models.CASCADE)
+    reviewer = models.ForeignKey("core.User", related_name="doctor_reviews" , on_delete=models.CASCADE)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    is_recommanding = models.BooleanField()
+    description = models.TextField()
+
+    class Meta:
+        unique_together = ['reviewer', 'doctor']
+
+    def __str__(self) -> str:
+        return f" - {self.id}"
+
+
+
 
 DEFAULT_HOURS = "07:00 AM - 09:00 PM"
 class OpenHour(models.Model):

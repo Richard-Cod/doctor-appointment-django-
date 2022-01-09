@@ -27,11 +27,17 @@ from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register(r'doctors', views.DoctorViewSet)
+# router.register(r'doctor_reviews', views.ListReviews)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('djoser/', include('djoser.urls')),
     path('authjwt/', include('djoser.urls.jwt')),
+
+
+
+    path('api/doctor_reviews/', views.ListReviews.as_view()),
+    path('api/doctor_reviews/<int:doctorId>', views.ListDoctorReviews.as_view()),
 
     path('api/', include(router.urls)),
 
