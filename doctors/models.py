@@ -78,10 +78,46 @@ class DoctorService(models.Model):
         return f" - {self.id}"
 
 
-class DoctorSpecializations(models.Model):
+class DoctorSpecialization(models.Model):
     doctor = models.ForeignKey(Doctor, related_name="specializations" , on_delete=models.CASCADE)
     
     title = models.CharField(max_length=255)
 
     def __str__(self) -> str:
         return f" - {self.id}"
+
+
+class DoctorLocation(models.Model):
+    doctor = models.ForeignKey(Doctor, related_name="locations" , on_delete=models.CASCADE)
+    
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+
+    place = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=6 , decimal_places=2)
+
+
+    def __str__(self) -> str:
+        return f" - {self.id}"
+
+
+
+DEFAULT_HOURS = "07:00 AM - 09:00 PM"
+class OpenHour(models.Model):
+    monday = models.CharField(max_length=255 , default=DEFAULT_HOURS , blank=True)
+    tuesday = models.CharField(max_length=255 , default=DEFAULT_HOURS , blank=True)
+    wednesday = models.CharField(max_length=255 , default=DEFAULT_HOURS , blank=True)
+    thursday = models.CharField(max_length=255 , default=DEFAULT_HOURS , blank=True)
+    friday = models.CharField(max_length=255 , default=DEFAULT_HOURS , blank=True)
+    saturday = models.CharField(max_length=255 , default=DEFAULT_HOURS , blank=True)
+    sunday = models.CharField(max_length=255 , blank=True)
+
+    doctor = models.OneToOneField(
+        Doctor,
+        related_name="openHours",
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
+    def __str__(self) -> str:
+        return f" - {self.doctor.user.email}"
