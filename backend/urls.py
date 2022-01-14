@@ -31,15 +31,14 @@ router.register(r'doctors', views.DoctorViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cadmin/', include('customAdmin.urls')),
     path('djoser/', include('djoser.urls')),
     path('authjwt/', include('djoser.urls.jwt')),
-
-
 
     path('api/doctor_reviews/', views.ListReviews.as_view()),
     path('api/doctor_reviews/<int:doctorId>', views.ListDoctorReviews.as_view()),
 
     path('api/', include(router.urls)),
 
-    #  path('api-auth/', include('rest_framework.urls'))
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+     path('api-auth/', include('rest_framework.urls'))
+]+ static(settings.STATIC_URL , document_root=settings.MEDIA_ROOT)

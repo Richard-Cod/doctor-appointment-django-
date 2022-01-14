@@ -32,6 +32,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'djoser',
+
+    'customAdmin',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +53,9 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "templates"
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -153,3 +157,11 @@ CORS_ALLOW_ALL_ORIGINS=True
 
 MEDIA_ROOT  = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+
+STATIC_URL = 'static/'
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / "customAdmin/static",
+]
