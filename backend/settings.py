@@ -27,13 +27,15 @@ INSTALLED_APPS = [
 
     "corsheaders",
 
-    'core',
-    'doctors',
+    'apps.core',
+    'apps.doctors',
 
     'rest_framework',
     'djoser',
 
-    'customAdmin',
+    'apps.customAdmin',
+    'apps.patients',
+    'apps.appointments'
 ]
 
 MIDDLEWARE = [
@@ -163,5 +165,5 @@ STATIC_URL = 'static/'
 
 
 STATICFILES_DIRS = [
-    BASE_DIR / "customAdmin/static",
+    BASE_DIR / "apps/customAdmin/static",
 ]

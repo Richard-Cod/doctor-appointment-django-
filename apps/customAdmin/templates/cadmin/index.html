@@ -1,0 +1,274 @@
+{% extends 'cadmin/layout/adminLayout.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="content container-fluid">
+					
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Welcome Admin!  </h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-primary border-primary">
+                            <i class="fe fe-users"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{doctors|length}}</h3>
+                        </div>
+                    </div>
+                    <div class="dash-widget-info">
+                        <h6 class="text-muted">Doctors</h6>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-primary w-50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-success">
+                            <i class="fe fe-credit-card"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{patients|length}}</h3>
+                        </div>
+                    </div>
+                    <div class="dash-widget-info">
+                        
+                        <h6 class="text-muted">Patients</h6>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-success w-50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-danger border-danger">
+                            <i class="fe fe-money"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{appointments|length}}</h3>
+                        </div>
+                    </div>
+                    <div class="dash-widget-info">
+                        
+                        <h6 class="text-muted">Appointment</h6>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-danger w-50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dash-widget-header">
+                        <span class="dash-widget-icon text-warning border-warning">
+                            <i class="fe fe-folder"></i>
+                        </span>
+                        <div class="dash-count">
+                            <h3>{{revenues}}</h3>
+                        </div>
+                    </div>
+                    <div class="dash-widget-info">
+                        
+                        <h6 class="text-muted">Revenue</h6>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-warning w-50"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+        
+            <!-- Sales Chart -->
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h4 class="card-title">Revenue</h4>
+                </div>
+                <div class="card-body">
+                    <div id="morrisArea"></div>
+                </div>
+            </div>
+            <!-- /Sales Chart -->
+            
+        </div>
+        <div class="col-md-12 col-lg-6">
+        
+            <!-- Invoice Chart -->
+            <div class="card card-chart">
+                <div class="card-header">
+                    <h4 class="card-title">Status</h4>
+                </div>
+                <div class="card-body">
+                    <div id="morrisLine"></div>
+                </div>
+            </div>
+            <!-- /Invoice Chart -->
+            
+        </div>	
+    </div>
+    <div class="row">
+        <div class="col-md-6 d-flex">
+        
+            <!-- Recent Orders -->
+            <div class="card card-table flex-fill">
+                <div class="card-header">
+                    <h4 class="card-title">Doctors List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Doctor Name</th>
+                                    <th>Speciality</th>
+                                    <th>Earned</th>
+                                    <th>Reviews</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for doctor in doctors %}
+                                <tr>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="/media/{{doctor.user.profile_pic}}" alt="User Image"></a>
+                                            <a href="profile.html">Dr. {{doctor.user.first_name}} {{doctor.user.last_name}} </a>
+                                        </h2>
+                                    </td>
+                                    <td>{{doctor.speciality}}</td>
+                                    <td>{{doctor.amount_per_our}}</td>
+                                    <td>
+                                        <i class="fe fe-star text-warning"></i>
+                                        <i class="fe fe-star text-warning"></i>
+                                        <i class="fe fe-star text-warning"></i>
+                                        <i class="fe fe-star text-warning"></i>
+                                        <i class="fe fe-star-o text-secondary"></i>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <p>Aucun Doctor</p>
+                                {% endfor %}
+                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /Recent Orders -->
+            
+        </div>
+        <div class="col-md-6 d-flex">
+        
+            <!-- Feed Activity -->
+            <div class="card  card-table flex-fill">
+                <div class="card-header">
+                    <h4 class="card-title">Patients List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0">
+                            <thead>
+                                <tr>													
+                                    <th>Patient Name</th>
+                                    <th>Phone</th>
+                                    <th>Last Visit</th>
+                                    <th>Paid</th>													
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients %}
+                                <tr>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="/media/{{patient.user.profile_pic}}" alt="Image"></a>
+                                            <a href="profile.html">Charlene Reed </a>
+                                        </h2>
+                                    </td>
+                                    <td>{{patient.user.phoneNumber}}</td>
+                                    <td>{{patient.user.last_login}}</td>
+                                    <td class="text-right">$100.00</td>
+                                </tr>
+                                {% empty %}
+                                <p>Aucun Patient</p>
+                                {% endfor %}
+
+                              
+                           
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /Feed Activity -->
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        
+            <!-- Recent Orders -->
+            <div class="card card-table">
+                <div class="card-header">
+                    <h4 class="card-title">Appointment List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Doctor Name</th>
+                                    <th>Speciality</th>
+                                    <th>Patient Name</th>
+                                    <th>Apointment Time</th>
+                                    <th>Status</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for appt in appointments %}
+                                    {% include 'cadmin/helper/showAppt.html' with appt=appt %}
+                                {% empty %}
+                                <p>Aucun rendez-vous</p>
+                                {% endfor %}
+                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /Recent Orders -->
+            
+        </div>
+    </div>
+    
+</div>
+
+
+{% endblock %}

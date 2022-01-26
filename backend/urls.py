@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path , include
 
 from rest_framework import routers
-from doctors import views
+from apps.doctors import views
 
 
 from django.conf import settings
@@ -31,7 +31,7 @@ router.register(r'doctors', views.DoctorViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cadmin/', include('customAdmin.urls')),
+    path('cadmin/', include('apps.customAdmin.urls')),
     path('djoser/', include('djoser.urls')),
     path('authjwt/', include('djoser.urls.jwt')),
 
@@ -41,4 +41,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
      path('api-auth/', include('rest_framework.urls'))
-]+ static(settings.STATIC_URL , document_root=settings.MEDIA_ROOT)
+]+ static(settings.STATIC_URL , document_root=settings.MEDIA_ROOT) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
