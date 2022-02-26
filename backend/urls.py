@@ -20,6 +20,7 @@ from rest_framework import routers
 from apps.doctors import views as doctorViews
 
 from apps.docapp_chats import views as ChatViews
+from apps.docapp_chats.otherviews.listDoctorsContacts import ListDoctorsContacts
 
 
 from django.conf import settings
@@ -43,6 +44,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     path('api/chats/', ChatViews.ListMessages.as_view()),
+    path('api/chats/list_doctors_contacts', ListDoctorsContacts.as_view()),
     path('api/pok/', ChatViews.CreateMessage.as_view()),
 
      path('api-auth/', include('rest_framework.urls'))

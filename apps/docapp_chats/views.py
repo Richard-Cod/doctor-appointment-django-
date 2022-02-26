@@ -1,7 +1,6 @@
-from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, render
 
-from rest_framework import serializers, viewsets
+from rest_framework import serializers
 
 from .models import Message
 
@@ -13,6 +12,7 @@ from rest_framework.response import Response
 from apps.core.models import User
 
 from django.db import transaction
+
 
 
 class ListMessages(APIView):
