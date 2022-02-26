@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import path , include
 
 from rest_framework import routers
-from apps.doctors import views
+from apps.doctors import views as doctorViews
+
+from apps.docapp_chats import views as ChatViews
 
 
 from django.conf import settings
@@ -26,7 +28,7 @@ from django.conf.urls.static import static
 
 
 router = routers.DefaultRouter()
-router.register(r'doctors', views.DoctorViewSet)
+router.register(r'doctors', doctorViews.DoctorViewSet)
 # router.register(r'doctor_reviews', views.ListReviews)
 
 urlpatterns = [
@@ -35,10 +37,13 @@ urlpatterns = [
     path('djoser/', include('djoser.urls')),
     path('authjwt/', include('djoser.urls.jwt')),
 
-    path('api/doctor_reviews/', views.ListReviews.as_view()),
-    path('api/doctor_reviews/<int:doctorId>', views.ListDoctorReviews.as_view()),
+    path('api/doctor_reviews/', doctorViews.ListReviews.as_view()),
+    path('api/doctor_reviews/<int:doctorId>', doctorViews.ListDoctorReviews.as_view()),
 
     path('api/', include(router.urls)),
+
+    path('api/chats/', ChatViews.ListMessages.as_view()),
+    path('api/pok/', ChatViews.CreateMessage.as_view()),
 
      path('api-auth/', include('rest_framework.urls'))
 ]+ static(settings.STATIC_URL , document_root=settings.MEDIA_ROOT) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

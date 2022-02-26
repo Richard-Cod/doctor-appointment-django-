@@ -35,7 +35,8 @@ INSTALLED_APPS = [
 
     'apps.customAdmin',
     'apps.patients',
-    'apps.appointments'
+    'apps.appointments',
+    'apps.docapp_chats',
 ]
 
 MIDDLEWARE = [

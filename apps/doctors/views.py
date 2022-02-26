@@ -21,18 +21,6 @@ class DoctorViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -57,6 +45,8 @@ class DoctorReviewsSerializer(serializers.ModelSerializer):
                 "is_recommanding",
                 "description",
 )   
+
+
 
 class ListReviews(APIView):
     http_method_names = ['get']
