@@ -30,6 +30,6 @@ class ListDoctorsContacts(APIView):
         result = []
         doctors = Doctor.objects.all()
         for doc in doctors:
-            result.append({"user" :UserSerializer(doc.user).data,"lastMessage" : "dernier message"})
+            result.append({"user" :UserSerializer(doc.user).data,"lastMessage" : {"content" : "dernier message"}})
 
         return Response(result)

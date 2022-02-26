@@ -146,7 +146,9 @@ DJOSER = {
     # 'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     # 'ACTIVATION_URL': '#/activate/{uid}/{token}',
     # 'SEND_ACTIVATION_EMAIL': True,
-    # 'SERIALIZERS': {},
+    'SERIALIZERS': {
+        'current_user': 'apps.core.serializers.UserSerializer',
+    },
     "EMAIL" : {
         "password_reset": "core.email.PasswordResetEmail",
     }
@@ -168,3 +170,4 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "apps/customAdmin/static",
 ]
+
