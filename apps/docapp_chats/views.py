@@ -16,13 +16,21 @@ from django.db import transaction
 
 
 class ListMessages(APIView):
-    http_method_names = ['get']
+    http_method_names = ['post']
     permission_classes = [permissions.IsAuthenticated]
     # queryset = DoctorReview.objects.all()
     serializer_class = MessageSerializer
 
-    def get(self, request, format=None):
-        reviews = Message.objects.all()
+    def post(self, request, format=None):
+        receiverId = request.data.get("receiverId")
+        print(request.data)
+        print("receiverId ",receiverId)
+        if(not receiverId):
+            return Response({"error" : "Please specify receiver id"},status=400)
+        
+        receiver = get_object_or_404(User , pk=receiverId)
+
+        reviews = Message.objects.filter(sender__in=[request.user,receiver],receiver__in=[request.user,receiver])
         return Response(MessageSerializer(reviews , many=True).data)
 
 class CreateMessage(APIView):

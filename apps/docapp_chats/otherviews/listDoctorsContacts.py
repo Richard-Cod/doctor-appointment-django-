@@ -33,3 +33,22 @@ class ListDoctorsContacts(APIView):
             result.append({"user" :UserSerializer(doc.user).data,"lastMessage" : {"content" : "dernier message"}})
 
         return Response(result)
+
+class ListPatientsContacts(APIView):
+    http_method_names = ['get']
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = MessageSerializer
+
+    def get(self, request, format=None):
+        result = []
+        users = User.objects.filter(doctor=None)
+        for user in users:
+            content = "No msg yet 😶"
+            messages = Message.objects.filter(sender__in=[request.user,user],receiver__in=[request.user,user])
+            message = messages.last()
+            if(message):
+                content = message.content
+
+            result.append({"user" :UserSerializer(user).data,"lastMessage" : {"content" : content}})
+
+        return Response(result)
