@@ -30,7 +30,13 @@ class ListDoctorsContacts(APIView):
         result = []
         doctors = Doctor.objects.all()
         for doc in doctors:
-            result.append({"user" :UserSerializer(doc.user).data,"lastMessage" : {"content" : "dernier message"}})
+            content = "No msg yet 😶"
+            messages = Message.objects.filter(sender__in=[request.user,doc.user],receiver__in=[request.user,doc.user])
+            message = messages.last()
+            if(message):
+                content = message.content
+
+            result.append({"user" :UserSerializer(doc.user).data,"lastMessage" : {"content" : content}})
 
         return Response(result)
 
