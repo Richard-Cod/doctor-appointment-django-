@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 
 from rest_framework import serializers
 
+from apps.docapp_chats.utils import getMessagesOfConversation
+
 from .models import Message
 
 from rest_framework import permissions
@@ -13,8 +15,6 @@ from apps.core.models import User
 
 from django.db import transaction
 
-
-
 class ListMessages(APIView):
     http_method_names = ['post']
     permission_classes = [permissions.IsAuthenticated]
@@ -24,14 +24,13 @@ class ListMessages(APIView):
     def post(self, request, format=None):
         receiverId = request.data.get("receiverId")
         print(request.data)
-        print("receiverId ",receiverId)
         if(not receiverId):
             return Response({"error" : "Please specify receiver id"},status=400)
         
         receiver = get_object_or_404(User , pk=receiverId)
 
-        reviews = Message.objects.filter(sender__in=[request.user,receiver],receiver__in=[request.user,receiver])
-        return Response(MessageSerializer(reviews , many=True).data)
+        messages = getMessagesOfConversation(request.user , receiver)
+        return Response(MessageSerializer(messages , many=True).data)
 
 class CreateMessage(APIView):
     http_method_names = ['post']
