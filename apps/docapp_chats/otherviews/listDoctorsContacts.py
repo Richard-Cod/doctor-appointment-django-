@@ -27,7 +27,6 @@ class MessageSerializer(serializers.ModelSerializer):
 
 def getContacts(currentUser,isPatient=True):
     result = []
-
     users = User.objects.filter(doctor__isnull=isPatient)
 
     for user in users:
